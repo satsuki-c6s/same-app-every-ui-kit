@@ -1,32 +1,189 @@
-# React + TypeScript + Vite
+# shadcn/ui — 実測メモ
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+「さつきのOSS研究室」UI コンポーネントライブラリ検証シリーズ 第1回の作業ディレクトリです。
+動画で尺の都合上切った分も含めて、**測った値を全部ここに置いています**。
 
-Currently, two official plugins are available:
+- 動画: (公開後にリンクを追加)
+- 測り方の定義: [../PREREG.md](../PREREG.md) (定義版 v2)
+- 全回の結果: [../RESULTS.md](../RESULTS.md)
+- 比較対象 (ライブラリ無しの実装): [../baseline](../baseline)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+測定日 **2026-08-02** / React 19.2.8 / Vite 8.2.0 / Node v25.2.1 / 1920×1080
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 30秒まとめ
 
-## Expanding the Oxlint configuration
+- **本体は全部無料** (MIT)。今回作った9要件は無料の範囲だけで全部できました
+- **書く量は半分になる**が、**抱えるコードは増える** (自作 340 行 / 取り込み 1,472 行)
+- **キーボード操作に差が出ます**。手で組んだ実装ではコンボボックスもタブも矢印キーが効きません
+- 転送量は増えます (JS gzip 64 kB → 140 kB)。フォントも自動で入ります
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+---
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+## 7軸の結果
+
+### 軸1 デザイン (採点しない)
+
+| 箇所 | ライブラリ無し | shadcn/ui |
+|---|---|---|
+| 書体 | `system-ui` | Geist (init が自動で入れる) |
+| 行の高さ | 詰まっている | 広い |
+| タブ | 下線だけ | 角丸の箱に収まったピル型 |
+| コンボボックス | 入力欄の下に候補が並ぶだけ | 検索欄つきのカード。影と角丸 |
+| カレンダー | **画面に描かれない** (ブラウザ標準の部品) | 盤面がページ内に描かれる |
+| 入力欄 | 1px の直線ボーダー | 角丸 + フォーカスリング |
+| テーブル | 罫線がはっきり | 罫線が薄い |
+| トースト | 枠付きテキスト | sonner。アイコン付きカード |
+
+書体の差は**部品の設計ではなく init がフォントを入れたこと**による差です。混同しないでください。
+
+### 軸2 開発速度
+
+| | ライブラリ無し | shadcn/ui |
+|---|---|---|
+| 自作行数 | 610 | **340** |
+| 取り込み行数 | 0 | **1,472** |
+| 依存パッケージ (dep + dev) | 2 + 6 | 17 + 7 |
+
+**同じ数字を2つ出しているのは、どちらか一方だと誤解を招くからです。**
+shadcn/ui は部品のソースを自分のリポジトリにコピーする方式なので、
+「書いた量」と「抱える量」が一致しません。
+
+手数は6手 (下の「作り方」参照)。**所要時間は測っていません** — 慣れの差が混ざるためです。
+
+### 軸3 自由度
+
+| 課題 | ライブラリ無し | shadcn/ui |
+|---|---|---|
+| ブランド色1つで全体を差し替え | 可能 / 2箇所 | 可能 / 2箇所 (`--primary`) |
+| 全部品の角丸を 0 に | 該当なし (既定で角丸なし) | 可能 / 1箇所 (`--radius: 0rem`) |
+| ダイアログの開閉アニメを差し替え | 新規に書く必要あり | 可能 / 2箇所 (`dialog.tsx` を直接編集) |
+
+**アニメの差し替えができるのは、ソースが手元にあるから**です。
+取り込み 1,472 行という数字の裏返しでもあります。
+
+### 軸4 技術構成
+
+React 専用 (Vue / Svelte 版は公式にはありません)。Tailwind CSS 前提。
+今回は Vite + React 19 で構築。CLI は `shadcn` 4.16.1、部品の土台は Radix、配色テーマは `nova`。
+
+### 軸5 アクセシビリティ
+
+| | ライブラリ無し | shadcn/ui |
+|---|---|---|
+| axe 違反 (初期 / ダイアログ / エラー時) | 2 / 0 / 2 | 2 / 0 / 2 |
+| 違反の内訳 | `landmark-one-main`, `region` | **同じ** |
+| Tab で主要5操作に到達 | 完遂 | 完遂 |
+| **↓ と Enter でコンボボックスを選べる** | **できない** | **できる** |
+| **← → でタブが切り替わる** | **切り替わらない** | **切り替わる** |
+| ダイアログの焦点閉じ込め / Esc | はい / はい | はい / はい |
+
+**自動検査では差が出ません。** 違反2件は両方とも「ページに `<main>` が無い」という
+こちらのマークアップの問題で、ライブラリを入れても直りません。
+
+**差は動かしてみないと分からない部分に出ます。** 矢印キー操作は仕様どおりに実装しないと
+動かないもので、手で組むとまず抜けます。
+
+重要度は用途しだいです。個人開発や社内ツールなら影響は小さく、
+公共・教育・医療・大企業向けでは採否に直結します。
+
+### 軸6 保守性 (2026-08-02 取得)
+
+| 項目 | 値 |
+|---|---|
+| スター数 | 120,287 |
+| 未解決 issue | 2,199 |
+| 最終更新 | 2026-07-31 |
+| 最新リリース | `shadcn@4.16.1` (2026-07-31) |
+| 直近90日のコミット数 | 234 |
+| 週間ダウンロード数 | 7,335,793 |
+| ライセンス | MIT |
+
+**ダウンロード数の注意**: これは **CLI パッケージ**の数字で、利用プロジェクト数ではありません。
+shadcn/ui は部品を npm から入れる方式ではないため、
+他のライブラリの週間ダウンロード数と単純に並べられません。
+
+出典: GitHub API (`shadcn-ui/ui`) / npm registry API
+
+### 軸7 必要な部品 (registry index 62件・2026-08-02 取得)
+
+| # | 部品 | 判定 | 備考 |
+|---|---|---|---|
+| 1 | テーブル | 無料 | `table` |
+| 2 | データグリッド (仮想化・列固定) | **無し** | TanStack Table と組み合わせる案内 |
+| 3 | 日付入力 | 無料 | `popover` + `calendar` を自分で組む |
+| 4 | カレンダー | 無料 | `calendar` |
+| 5 | グラフ | 無料 | `chart` |
+| 6 | コンボボックス | 無料 | `combobox` |
+| 7 | コマンドパレット | 無料 | `command` |
+| 8 | トースト | 無料 | `sonner` / `toast` |
+| 9 | ダイアログ | 無料 | `dialog` / `alert-dialog` |
+| 10 | ドロワー | 無料 | `drawer` / `sheet` |
+| 11 | タブ | 無料 | `tabs` |
+| 12 | フォーム検証 | 無料 | `form` |
+| 13 | ファイルアップロード | **判定保留** | `attachment` があるが用途を確認できていない |
+| 14 | リッチテキスト | **無し** | `textarea` のみ |
+| 15 | ページネーション | 無料 | `pagination` |
+
+**shadcn/ui 本体に有料版はありません。** MIT で全部無料です。
+有料が出てくるのは**第三者が売っているブロック集** (shadcnblocks、Tailwind Plus など) で、
+これは shadcn/ui 本体の機能制限ではありません。混同しないでください。
+
+---
+
+## キャプチャ
+
+`shots/` に10枚。[../baseline/shots](../baseline/shots) と**同じ番号が同じ場面**です。
+
+| ファイル | 場面 |
+|---|---|
+| `01-initial.png` | 初期表示 |
+| `02-search.png` | 検索で絞り込み |
+| `03-combobox.png` | コンボボックスを開いた状態 |
+| `04-filter.png` | 言語で絞り込み |
+| `05-sorted.png` | 列で並べ替え |
+| `06-dialog.png` | ダイアログ |
+| `07-tab-form.png` | 登録タブ |
+| `08-calendar.png` | カレンダー |
+| `09-form-error.png` | 検証エラー + トースト |
+| `10-dark.png` | ダークモード |
+
+すべて `../scripts/capture.mts` の出力です (手撮りはしていません)。
+
+---
+
+## 作り方 (実際に踏んだ6手)
+
+```bash
+npm create vite@latest shadcn-ui -- --template react-ts
+npm i tailwindcss @tailwindcss/vite
+# src/index.css を @import "tailwindcss"; の1行にする
+# @ エイリアスを vite.config.ts と tsconfig に追加
+npx shadcn@latest init -y -b radix -p nova
+npx shadcn@latest add button input label table dialog sonner tabs popover command calendar
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+**CLI が変わっています** (`shadcn` 4.16.1 時点)。
+`-b` は色ではなく**部品ライブラリの選択** (`base` / `radix` / `aria`)、
+配色テーマは `-p` (`nova` / `vega` / `maia` / `lyra` / `mira` / `luma` / `sera` / `rhea`)。
+**色名を `-b` に渡す古い手順は通りません。**
+
+## 動かし方
+
+```bash
+npm install
+npm run dev      # 開発サーバ
+npm run build    # 本番ビルド
+```
+
+`shared/data.json` と `shared/copy.json` を読むため、このディレクトリ単体ではなく
+リポジトリごと取得してください。
+
+---
+
+## 訂正履歴
+
+動画は公開後に直せませんが、ここは直せます。誤りが見つかったらここに追記します。
+
+- (現時点で訂正はありません)
