@@ -96,8 +96,13 @@ async function run(page: Page): Promise<void> {
   await clickControl(page, '登録');
   await shoot(page, '07-tab-form.png');
 
-  // カレンダー。素の実装は <input type="date"> なので盤面はブラウザ標準
-  const datePicker = page.locator('#date, input[type="date"]').first();
+  // カレンダー。開き方が実装で違う:
+  //   素の実装 = <input type="date"> (盤面はブラウザ標準)
+  //   shadcn/ui = id="date" のボタン
+  //   MUI = 欄が分割入力なので、盤面は専用のアイコンボタンでしか開かない
+  const dateButton = page.locator('button[aria-label*="date" i], button[aria-label*="日付"]').first();
+  const datePicker =
+    (await dateButton.count()) > 0 ? dateButton : page.locator('#date, input[type="date"]').first();
   await datePicker.click();
   await shoot(page, '08-calendar.png');
   await page.keyboard.press('Escape');
