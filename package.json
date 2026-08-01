@@ -1,0 +1,15 @@
+{
+  "name": "same-app-every-ui-kit",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "同じアプリを各 UI コンポーネントライブラリで作って比べる。計測とキャプチャのツール置き場。",
+  "scripts": {
+    "capture": "node scripts/capture.mts"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.12.1",
+    "axe-core": "^4.12.1",
+    "playwright": "^1.62.1"
+  }
+}

@@ -1,0 +1,296 @@
+/*
+ * 素の CSS。基準なので装飾はしない。
+ * ここに凝った見た目を足すと「UI ライブラリを入れると何が変わるか」が見えなくなる。
+ */
+
+:root {
+  --bg: #ffffff;
+  --fg: #1a1a1a;
+  --muted: #666666;
+  --border: #cccccc;
+  --accent: #1a56db;
+  --error: #b91c1c;
+  --success: #15803d;
+  --surface: #f6f6f6;
+}
+
+:root[data-theme='dark'] {
+  --bg: #16181d;
+  --fg: #e8e8e8;
+  --muted: #9aa0a6;
+  --border: #3a3f47;
+  --accent: #7aa2f7;
+  --error: #f87171;
+  --success: #4ade80;
+  --surface: #1e2127;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 16px 64px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+h1 {
+  font-size: 22px;
+  margin: 0;
+}
+
+h2 {
+  font-size: 17px;
+  margin: 0 0 8px;
+}
+
+.subtitle,
+.summary,
+.description {
+  color: var(--muted);
+  margin: 4px 0;
+}
+
+.description {
+  font-size: 13px;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+button[aria-pressed='true'] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+}
+
+input {
+  font: inherit;
+  color: inherit;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 5px 8px;
+  width: 100%;
+}
+
+input[aria-invalid='true'] {
+  border-color: var(--error);
+}
+
+/* タブ。素の HTML に無いので手で組む (下線で現在地を示すだけの素朴なもの)。 */
+.tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--border);
+  margin-top: 20px;
+}
+
+.tab {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 6px 14px;
+  margin-bottom: -1px;
+}
+
+.tab.current {
+  border-bottom-color: var(--accent);
+  color: var(--accent);
+}
+
+/* コンボボックス。入力欄の下に候補を出すだけの手組み。 */
+.combo {
+  position: relative;
+}
+
+.combo-list {
+  position: absolute;
+  z-index: 10;
+  left: 0;
+  right: 0;
+  margin: 2px 0 0;
+  padding: 0;
+  list-style: none;
+  max-height: 240px;
+  overflow-y: auto;
+  background: var(--bg);
+  border: 1px solid var(--border);
+}
+
+.combo-list li button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 5px 8px;
+}
+
+.combo-list li button:hover {
+  background: var(--surface);
+}
+
+.combo-list .empty {
+  color: var(--muted);
+  padding: 8px;
+  text-align: left;
+}
+
+.controls {
+  display: grid;
+  gap: 12px;
+  margin: 20px 0 12px;
+}
+
+.field {
+  display: block;
+  max-width: 420px;
+}
+
+.field > span {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 2px;
+}
+
+.filter {
+  border: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px 10px;
+}
+
+legend {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  border-bottom: 1px solid var(--border);
+  padding: 8px 6px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.table th {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.numeric {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.sort {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+}
+
+.link {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.empty {
+  color: var(--muted);
+  text-align: center;
+  padding: 24px 0;
+}
+
+dialog {
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--border);
+  max-width: 480px;
+  padding: 20px;
+}
+
+dialog::backdrop {
+  background: rgb(0 0 0 / 45%);
+}
+
+.dialog-name {
+  font-weight: 700;
+}
+
+.register {
+  margin-top: 32px;
+}
+
+.register form {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+}
+
+.error {
+  color: var(--error);
+  font-size: 13px;
+}
+
+.toast-area {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+}
+
+.toast {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 8px 14px;
+  margin: 0;
+}
+
+.toast.success {
+  border-color: var(--success);
+}
+
+.toast.error {
+  border-color: var(--error);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

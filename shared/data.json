@@ -1,0 +1,26 @@
+{
+  "capturedAt": "2026-08-01",
+  "note": "GitHub API で取得した実測値のスナップショット。デモを毎回同じ結果にするため固定値で持つ。",
+  "items": [
+    { "fullName": "vuejs/vue", "description": "Vue 2 の旧リポジトリ。Vue 3 は vuejs/core へ", "language": "TypeScript", "stars": 210122 },
+    { "fullName": "flutter/flutter", "description": "モバイルを中心に美しいアプリを素早く作る", "language": "Dart", "stars": 178035 },
+    { "fullName": "twbs/bootstrap", "description": "レスポンシブ Web 開発で最も普及した CSS フレームワーク", "language": "MDX", "stars": 174546 },
+    { "fullName": "microsoft/markitdown", "description": "各種ファイルや Office 文書を Markdown に変換する", "language": "Python", "stars": 170566 },
+    { "fullName": "firecrawl/firecrawl", "description": "Web を大規模に検索・取得・操作する API", "language": "TypeScript", "stars": 158773 },
+    { "fullName": "Genymobile/scrcpy", "description": "Android 端末の画面を PC に表示して操作する", "language": "C", "stars": 146772 },
+    { "fullName": "vercel/next.js", "description": "React のフルスタックフレームワーク", "language": "JavaScript", "stars": 141208 },
+    { "fullName": "microsoft/PowerToys", "description": "Windows の生産性を上げるユーティリティ集", "language": "C", "stars": 137329 },
+    { "fullName": "angular/angular", "description": "型と規約が揃った全部入りのフレームワーク", "language": "TypeScript", "stars": 100616 },
+    { "fullName": "sveltejs/svelte", "description": "コンパイラ方式。実行時ライブラリを持たない", "language": "JavaScript", "stars": 87714 },
+    { "fullName": "vitejs/vite", "description": "次世代のフロントエンド開発ツール", "language": "TypeScript", "stars": 82161 },
+    { "fullName": "nestjs/nest", "description": "サーバー側の構造化された Node.js フレームワーク", "language": "TypeScript", "stars": 76277 },
+    { "fullName": "withastro/astro", "description": "コンテンツ中心のサイト向け。既定でゼロ JS", "language": "TypeScript", "stars": 61432 },
+    { "fullName": "nuxt/nuxt", "description": "Vue のフルスタックフレームワーク", "language": "TypeScript", "stars": 60702 },
+    { "fullName": "vuejs/core", "description": "Vue 3 本体。段階的に導入できる設計", "language": "TypeScript", "stars": 54071 },
+    { "fullName": "bigskysoftware/htmx", "description": "HTML の属性だけで動かす", "language": "JavaScript", "stars": 48858 },
+    { "fullName": "preactjs/preact", "description": "React 互換の 3kB 実装", "language": "JavaScript", "stars": 38792 },
+    { "fullName": "solidjs/solid", "description": "仮想 DOM を使わない細粒度の更新", "language": "TypeScript", "stars": 35783 },
+    { "fullName": "alpinejs/alpine", "description": "ビルドなしでマークアップに直接書く", "language": "HTML", "stars": 31822 },
+    { "fullName": "QwikDev/qwik", "description": "再開可能性。JS を送らずに動かす", "language": "TypeScript", "stars": 22038 }
+  ]
+}

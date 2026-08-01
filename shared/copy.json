@@ -1,0 +1,57 @@
+{
+  "note": "画面に出る文言。全実装がこれを読む。実装ごとに変えない (条件を揃えるため)。",
+  "app": {
+    "title": "OSS リポジトリ検索",
+    "subtitle": "20 件の固定データから探す"
+  },
+  "search": {
+    "label": "キーワード",
+    "placeholder": "リポジトリ名や説明で絞り込む"
+  },
+  "filter": {
+    "label": "言語",
+    "all": "すべて",
+    "placeholder": "言語を選ぶ",
+    "empty": "該当する言語がありません"
+  },
+  "tabs": {
+    "list": "一覧",
+    "register": "登録"
+  },
+  "table": {
+    "columnName": "リポジトリ",
+    "columnLanguage": "言語",
+    "columnStars": "スター数",
+    "sortHint": "列見出しで並べ替え",
+    "empty": "条件に合うリポジトリがありません"
+  },
+  "summary": {
+    "template": "{total} 件中 {shown} 件を表示"
+  },
+  "dialog": {
+    "title": "リポジトリの詳細",
+    "close": "閉じる"
+  },
+  "form": {
+    "title": "リポジトリを登録",
+    "nameLabel": "リポジトリ名",
+    "namePlaceholder": "owner/repo",
+    "languageLabel": "言語",
+    "urlLabel": "URL",
+    "dateLabel": "登録日",
+    "datePlaceholder": "日付を選ぶ",
+    "errorDate": "登録日を選んでください",
+    "submit": "登録する",
+    "errorRequired": "入力してください",
+    "errorFormat": "owner/repo の形式で入力してください",
+    "errorUrl": "URL の形式が正しくありません"
+  },
+  "toast": {
+    "success": "登録しました",
+    "error": "入力内容を確認してください"
+  },
+  "theme": {
+    "toDark": "ダークモードに切り替え",
+    "toLight": "ライトモードに切り替え"
+  }
+}

@@ -1,0 +1,20 @@
+node_modules/
+dist/
+build/
+.next/
+.omc/
+.dev.log
+.env*
+!.env.example
+*.db
+*.sqlite*
+*.pem
+*.key
+credentials*
+
+# キャプチャの中間生成物。静止画 (<kit>/shots/*.png) だけをコミットする
+*.mp4
+*.webm
+playwright-report/
+test-results/
+trace.zip
