@@ -1,0 +1,85 @@
+{
+  "kit": "chakra",
+  "version": "3.36.1",
+  "measuredAt": "2026-08-02",
+  "prereg": "v2",
+  "base": { "framework": "react@19.2.8", "bundler": "vite@8.2.0", "node": "25.2.1", "typescript": "6.0.3" },
+  "axes": {
+    "speed": {
+      "implLines": 332,
+      "vendoredLines": 0,
+      "components": 2,
+      "steps": 2,
+      "stepsNote": "公式手順どおりに始めた場合の手数。実際には土台の版を揃えるため設定ファイルを複製している",
+      "componentsNote": "自分で書いたコンポーネント数 (App + Root)。src/App.tsx 301 行 + src/main.tsx 31 行",
+      "linesNote": "部品を Root/Label/Control のような細かい部分に分けて組む設計なので、同じ画面でも行数は増えやすい"
+    },
+    "freedom": {
+      "a": "possible",
+      "b": "possible",
+      "c": "possible",
+      "editedPlaces": 1,
+      "note": "createSystem + defineConfig の1箇所。ただし色は 50〜950 の11段階に加えて semanticTokens 7項目を書く必要があり、6実装で最も手数が多い。角丸は semanticTokens.radii の l1/l2/l3 の3値。(c) は Dialog の motionPreset が公式の口"
+    },
+    "stack": {
+      "frameworks": ["react"],
+      "ssr": true,
+      "rsc": false,
+      "styling": "CSS-in-JS (Emotion ベース)",
+      "fetchedAt": "2026-08-02",
+      "note": "内部で Ark UI を使う。第1回 shadcn/ui が Radix を土台にしていたのと同じ構造"
+    },
+    "a11y": {
+      "axeVersion": "4.12.1",
+      "violations": { "initial": 2, "dialog": 0, "formError": 3 },
+      "violationRules": {
+        "initial": ["landmark-one-main", "region"],
+        "dialog": [],
+        "formError": ["color-contrast", "landmark-one-main", "region"]
+      },
+      "keyboard": "complete",
+      "comboArrowEnter": true,
+      "tabArrowKeys": true,
+      "focusTrap": true,
+      "escClose": true,
+      "note": "初期表示は2件で baseline/shadcn/MUI と同水準 (Mantine・Ant Design・daisyUI の3件より少ない)。ただしフォーム検証エラー中に color-contrast が出る。原因は公式の Field.ErrorText の既定色 #ef4444 で、白背景に 3.76:1 (WCAG AA は 4.5:1)。こちらが指定した色ではない"
+    },
+    "maintenance": {
+      "stars": 40549,
+      "commits90d": 81,
+      "latestRelease": "2026-07-19",
+      "latestVersion": "3.36.1",
+      "lastPush": "2026-07-30",
+      "openIssues": 20,
+      "weeklyDownloads": 1812128,
+      "downloadsPackage": "@chakra-ui/react",
+      "downloadsWindow": "2026-07-26/2026-08-01",
+      "docsSearch": true,
+      "fetchedAt": "2026-08-02"
+    }
+  },
+  "parts": [
+    { "name": "テーブル", "tier": "free", "source": "https://chakra-ui.com/docs/components/table", "fetchedAt": "2026-08-02", "note": "並べ替えは自分で書く" },
+    { "name": "データグリッド (仮想化・列固定)", "tier": "none", "source": "https://chakra-ui.com/docs/components/table", "fetchedAt": "2026-08-02" },
+    { "name": "日付入力", "tier": "free", "source": "https://chakra-ui.com/docs/components/date-picker", "fetchedAt": "2026-08-02", "note": "DatePicker.Input。公式サイトの部品ページには Not available と出るが、パッケージには実装されている" },
+    { "name": "カレンダー", "tier": "free", "source": "https://chakra-ui.com/docs/components/date-picker", "fetchedAt": "2026-08-02", "note": "DatePicker の盤面。導入すると JS 転送量が 169.91 kB から 190.86 kB へ 20.95 kB 増える" },
+    { "name": "グラフ", "tier": "none", "source": "https://chakra-ui.com/docs/components", "fetchedAt": "2026-08-02", "note": "公式の部品一覧に無い" },
+    { "name": "コンボボックス", "tier": "free", "source": "https://chakra-ui.com/docs/components/combobox", "fetchedAt": "2026-08-02" },
+    { "name": "コマンドパレット", "tier": "none", "source": "https://chakra-ui.com/docs/components", "fetchedAt": "2026-08-02" },
+    { "name": "トースト", "tier": "free", "source": "https://chakra-ui.com/docs/components/toast", "fetchedAt": "2026-08-02", "note": "createToaster / toaster.create" },
+    { "name": "ダイアログ", "tier": "free", "source": "https://chakra-ui.com/docs/components/dialog", "fetchedAt": "2026-08-02" },
+    { "name": "ドロワー", "tier": "free", "source": "https://chakra-ui.com/docs/components/drawer", "fetchedAt": "2026-08-02" },
+    { "name": "タブ", "tier": "free", "source": "https://chakra-ui.com/docs/components/tabs", "fetchedAt": "2026-08-02" },
+    { "name": "フォーム検証", "tier": "free", "source": "https://chakra-ui.com/docs/components/field", "fetchedAt": "2026-08-02", "note": "Field.Root の invalid と Field.ErrorText。表示の仕組みで、検証そのものは自分で書く" },
+    { "name": "ファイルアップロード", "tier": "free", "source": "https://chakra-ui.com/docs/components/file-upload", "fetchedAt": "2026-08-02" },
+    { "name": "リッチテキスト", "tier": "none", "source": "https://chakra-ui.com/docs/components", "fetchedAt": "2026-08-02" },
+    { "name": "ページネーション", "tier": "free", "source": "https://chakra-ui.com/docs/components/pagination", "fetchedAt": "2026-08-02" }
+  ],
+  "aux": { "jsGzipBytes": 190860, "cssGzipBytes": 0, "fontFiles": 0, "deps": 4, "devDeps": 7 },
+  "deepDive": ["a11y", "parts", "freedom"],
+  "measurementNotes": [
+    "一度 DatePicker を「公式に無い」と誤判定し、素の date 入力で測った。公式サイトの部品ページが Not available と表示していたためだが、インストール済みパッケージには実装されていた。公式部品に直して測り直した値を掲載している",
+    "入力欄をはじめ Text as=label と自前の赤色で組んでいたため label 違反と余分な color-contrast が出た。公式の Field 部品に直してから測り直した (既定値のみルールに合わせるため)",
+    "撮影スクリプトのカレンダーを開く条件に aria-label*=calendar を追加した。Chakra のトリガーが Open calendar のため。既存6実装のキャプチャに影響がないことを確認済み"
+  ]
+}

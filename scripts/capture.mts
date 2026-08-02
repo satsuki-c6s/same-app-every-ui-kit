@@ -153,7 +153,10 @@ async function run(page: Page): Promise<void> {
   //   素の実装 = <input type="date"> (盤面はブラウザ標準)
   //   shadcn/ui = id="date" のボタン
   //   MUI = 欄が分割入力なので、盤面は専用のアイコンボタンでしか開かない
-  const dateButton = page.locator('button[aria-label*="date" i], button[aria-label*="日付"]').first();
+  // 開くためのボタンを持つ実装 (MUI は "date"、Chakra は "Open calendar")
+  const dateButton = page
+    .locator('button[aria-label*="date" i], button[aria-label*="calendar" i], button[aria-label*="日付"]')
+    .first();
   const datePicker =
     (await dateButton.count()) > 0 ? dateButton : page.locator('#date, input[type="date"]').first();
   await datePicker.click();
