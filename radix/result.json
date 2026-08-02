@@ -1,0 +1,86 @@
+{
+  "kit": "radix",
+  "version": "1.6.7",
+  "measuredAt": "2026-08-02",
+  "prereg": "v2",
+  "base": { "framework": "react@19.2.8", "bundler": "vite@8.2.0", "node": "25.2.1", "typescript": "6.0.3" },
+  "axes": {
+    "speed": {
+      "implLines": 597,
+      "vendoredLines": 0,
+      "components": 2,
+      "steps": 2,
+      "stepsNote": "公式手順どおりに始めた場合の手数。実際には土台の版を揃えるため設定ファイルを複製している",
+      "componentsNote": "自分で書いたコンポーネント数 (App + Root)。src/App.tsx 257 行 + src/main.tsx 26 行 + src/style.css 314 行",
+      "linesNote": "7実装で最多。CSS 314 行がそのまま乗る。Radix は見た目を持たないので配色・余白・角丸を全部自分で書く。ライブラリ無しの baseline (610 行) に迫る"
+    },
+    "freedom": {
+      "a": "possible",
+      "b": "possible",
+      "c": "possible",
+      "editedPlaces": 1,
+      "note": "自分の CSS なので CSS 変数 1値ずつで済む。7実装で最も軽いが、それは元から全部自分で書いているため。テーマという仕組み自体が無い"
+    },
+    "stack": {
+      "frameworks": ["react"],
+      "ssr": true,
+      "rsc": false,
+      "styling": "スタイルを持たない (見た目は利用側が書く)",
+      "fetchedAt": "2026-08-02",
+      "note": "第1回 shadcn/ui はこの上に見た目を載せたもの。第6回 Chakra UI は同系の Ark UI を土台にしている"
+    },
+    "a11y": {
+      "axeVersion": "4.12.1",
+      "violations": { "initial": 2, "dialog": 0, "formError": 3 },
+      "violationRules": {
+        "initial": ["landmark-one-main", "region"],
+        "dialog": [],
+        "formError": ["color-contrast", "landmark-one-main", "region"]
+      },
+      "keyboard": "complete",
+      "comboArrowEnter": true,
+      "tabArrowKeys": true,
+      "focusTrap": true,
+      "escClose": true,
+      "note": "キーボード操作は全項目通過。初期表示2件は7実装の最少側。エラー表示中の color-contrast は Radix Colors 公式パッケージの 9番 (#0090ff / #e5484d) に白文字を載せた箇所。公式が「9番の多くは白文字向け」と案内している使い方で、こちらが選んだ色ではない。Radix の部品由来ではなく配色パッケージ由来"
+    },
+    "maintenance": {
+      "stars": 19112,
+      "commits90d": 216,
+      "latestRelease": null,
+      "latestVersion": "1.6.7",
+      "lastPush": "2026-07-31",
+      "openIssues": 307,
+      "weeklyDownloads": 11665982,
+      "downloadsPackage": "radix-ui",
+      "downloadsWindow": "2026-07-26/2026-08-01",
+      "docsSearch": true,
+      "fetchedAt": "2026-08-02",
+      "note": "週間ダウンロード 1,166万は7実装で最多。MUI (1,018万) や shadcn CLI (733万) を上回る。土台として広く使われている裏付け。GitHub の releases は個別パッケージ単位で切られており latest が取れない"
+    }
+  },
+  "parts": [
+    { "name": "テーブル", "tier": "none", "source": "radix-ui 1.6.7 の export 一覧", "fetchedAt": "2026-08-02", "note": "素の table を自分で書く" },
+    { "name": "データグリッド (仮想化・列固定)", "tier": "none", "source": "radix-ui 1.6.7 の export 一覧", "fetchedAt": "2026-08-02" },
+    { "name": "日付入力", "tier": "none", "source": "radix-ui 1.6.7 の export 一覧", "fetchedAt": "2026-08-02", "note": "素の date 入力を使った" },
+    { "name": "カレンダー", "tier": "none", "source": "radix-ui 1.6.7 の export 一覧", "fetchedAt": "2026-08-02" },
+    { "name": "グラフ", "tier": "none", "source": "radix-ui 1.6.7 の export 一覧", "fetchedAt": "2026-08-02" },
+    { "name": "コンボボックス", "tier": "none", "source": "radix-ui 1.6.7 の export 一覧", "fetchedAt": "2026-08-02", "note": "Select はあるが入力しながら絞り込む Combobox は無い" },
+    { "name": "コマンドパレット", "tier": "none", "source": "radix-ui 1.6.7 の export 一覧", "fetchedAt": "2026-08-02", "note": "第三者製の cmdk が Radix の上に作られている" },
+    { "name": "トースト", "tier": "free", "source": "https://www.radix-ui.com/primitives/docs/components/toast", "fetchedAt": "2026-08-02" },
+    { "name": "ダイアログ", "tier": "free", "source": "https://www.radix-ui.com/primitives/docs/components/dialog", "fetchedAt": "2026-08-02" },
+    { "name": "ドロワー", "tier": "none", "source": "radix-ui 1.6.7 の export 一覧", "fetchedAt": "2026-08-02", "note": "Dialog を横から出す形で自作する" },
+    { "name": "タブ", "tier": "free", "source": "https://www.radix-ui.com/primitives/docs/components/tabs", "fetchedAt": "2026-08-02" },
+    { "name": "フォーム検証", "tier": "free", "source": "radix-ui 1.6.7 の export 一覧", "fetchedAt": "2026-08-02", "note": "Form がある。今回は他実装と条件を揃えるため共有ロジックで検証した" },
+    { "name": "ファイルアップロード", "tier": "none", "source": "radix-ui 1.6.7 の export 一覧", "fetchedAt": "2026-08-02" },
+    { "name": "リッチテキスト", "tier": "none", "source": "radix-ui 1.6.7 の export 一覧", "fetchedAt": "2026-08-02" },
+    { "name": "ページネーション", "tier": "none", "source": "radix-ui 1.6.7 の export 一覧", "fetchedAt": "2026-08-02" }
+  ],
+  "aux": { "jsGzipBytes": 98320, "cssGzipBytes": 1330, "fontFiles": 0, "deps": 3, "devDeps": 7 },
+  "deepDive": ["speed", "a11y", "parts"],
+  "measurementNotes": [
+    "部品の有無は公式サイトではなく radix-ui 1.6.7 の export 一覧で判定した (第6回で公式サイトの表示を信じて誤判定したため)。35 部品ある",
+    "配色は Radix Colors 3.0.0 の公式値をそのまま使った。#0090ff と #e5484d は公式パッケージの値と一致することを確認済み",
+    "color-contrast の指摘は、その 9番の色に白文字を載せた箇所で出た。公式は「9番の多くは白文字向け」と案内しており、指針どおりの使い方でも axe の AA 基準は満たさない"
+  ]
+}
