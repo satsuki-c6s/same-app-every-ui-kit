@@ -1,0 +1,71 @@
+{
+  "kit": "magicui",
+  "version": "registry (2026-08-02 取得)",
+  "measuredAt": "2026-08-02",
+  "prereg": "v2",
+  "scope": "演出デモのみ (共通デモ9要件は作らない)",
+  "scopeReason": "Magic UI の 77 部品はすべて演出系で、表・タブ・選択・入力欄を1つも持たない。共通デモを作ると中身がほぼ自作になり「同じ条件で比べた」と言えなくなるため、比較表には入れず別枠で記録する",
+  "base": { "framework": "react@19.2.8", "bundler": "vite@8.2.0", "node": "25.2.1", "typescript": "6.0.3", "tailwindcss": "4.3.3" },
+  "axes": {
+    "speed": {
+      "implLines": 197,
+      "vendoredLines": 928,
+      "components": 9,
+      "steps": 3,
+      "note": "共通デモではなく演出デモの値。自作 197 行は演出デモの画面 (App/main/index.css/utils)。取り込み 928 行は registry から取得した 9 部品のソース。第1回 shadcn/ui と同じ「ソースを自分のリポジトリにコピーする」方式",
+      "vendoredParts": ["meteors", "border-beam", "marquee", "number-ticker", "shimmer-button", "typing-animation", "aurora-text", "animated-list", "dot-pattern"]
+    },
+    "stack": {
+      "frameworks": ["react"],
+      "ssr": true,
+      "rsc": false,
+      "styling": "Tailwind CSS + motion (取り込んだ部品が使う)",
+      "fetchedAt": "2026-08-02",
+      "note": "registry の schema は ui.shadcn.com のものを使っており、shadcn と同じ配布方式"
+    },
+    "a11y": {
+      "axeVersion": "4.12.1",
+      "note": "共通デモを作っていないため、他実装と同じ条件での比較値は無い",
+      "measured": false
+    },
+    "maintenance": {
+      "stars": 21767,
+      "commits90d": 19,
+      "openIssues": 0,
+      "lastPush": "2026-07-31",
+      "docsSearch": true,
+      "fetchedAt": "2026-08-02",
+      "note": "未解決 issue 0 件。直近90日のコミット 19 は8実装で最少"
+    }
+  },
+  "parts": {
+    "total": 77,
+    "allFree": true,
+    "note": "registry の registry:ui は 77 件で、すべて無料で取得できる。ただし全部が演出系 (meteors / aurora-text / marquee / border-beam など)",
+    "commonDemoParts": {
+      "テーブル": "無し",
+      "タブ": "無し",
+      "選択・コンボボックス": "無し",
+      "ダイアログ": "無し (hero-video-dialog は動画再生用)",
+      "入力欄": "無し",
+      "トースト": "無し",
+      "カレンダー・日付": "無し",
+      "ボタン": "あり (shimmer / shiny / pulsating / ripple / rainbow / interactive-hover の6種類。すべて見た目の演出)"
+    },
+    "fetchedAt": "2026-08-02"
+  },
+  "pricing": {
+    "core": "無料 (MIT)。77 部品すべて",
+    "pro": "Individual License $199 買い切り (Lifetime Access)",
+    "proContent": "9本以上のテンプレートと 50以上のランディングページ用セクション。部品の機能制限ではなく、完成済みのページ集",
+    "source": "https://pro.magicui.design/",
+    "fetchedAt": "2026-08-02",
+    "note": "第1回 shadcn/ui と同じ構造。本体に有料版は無く、有料なのは別売りのテンプレート集"
+  },
+  "aux": { "jsGzipBytes": 114990, "cssGzipBytes": 5530, "deps": 5, "devDeps": 9 },
+  "measurementNotes": [
+    "部品の有無は公式サイトの表示ではなく registry.json (247 項目・うち registry:ui が 77 件) で判定した",
+    "演出は静止画では伝わらないため、1920x1080 で 6 秒の録画を撮って動画に差し込んだ (scripts/_record-magicui.mts)",
+    "Pro のコード・アセットは一切取得・コミットしていない。価格と内容は公式ページからの転記のみ"
+  ]
+}
