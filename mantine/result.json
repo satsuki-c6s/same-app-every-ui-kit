@@ -5,7 +5,14 @@
   "prereg": "v2",
   "base": { "framework": "react@19.2.8", "bundler": "vite@8.2.0", "node": "25.2.1", "typescript": "6.0.3" },
   "axes": {
-    "speed": { "implLines": 269, "vendoredLines": 0, "components": 2, "steps": 2 },
+    "speed": {
+      "implLines": 269,
+      "vendoredLines": 0,
+      "components": 2,
+      "steps": 2,
+      "stepsNote": "公式手順どおりに始めた場合の手数。実際には土台の版を第2回 (MUI) と一致させるため設定ファイルを複製しており、この2手は実行していない",
+      "componentsNote": "自分で書いたコンポーネント数 (App + Root)。src/App.tsx 240 行 + src/main.tsx 29 行"
+    },
     "freedom": { "a": "possible", "b": "possible", "c": "possible", "editedPlaces": 1 },
     "stack": {
       "frameworks": ["react"],
