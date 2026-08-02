@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+/* daisyUI 5 は CSS 側でプラグインを宣言する (公式手順)。
+   テーマは既定の light / dark をそのまま使い、色や角丸は手で調整しない (既定値のみルール)。 */
+@plugin "daisyui" {
+  themes: light --default, dark;
+}

@@ -1,0 +1,80 @@
+{
+  "kit": "daisyui",
+  "version": "5.7.11",
+  "measuredAt": "2026-08-02",
+  "prereg": "v2",
+  "base": { "framework": "react@19.2.8", "bundler": "vite@8.2.0", "node": "25.2.1", "typescript": "6.0.3", "tailwindcss": "4.3.3" },
+  "axes": {
+    "speed": {
+      "implLines": 331,
+      "vendoredLines": 0,
+      "components": 2,
+      "steps": 3,
+      "stepsNote": "公式手順どおりに始めた場合の手数 (雛形 / npm i tailwindcss @tailwindcss/vite daisyui / CSS に @plugin を書く)。実際には土台の版を揃えるため設定ファイルを複製している",
+      "componentsNote": "自分で書いたコンポーネント数 (App + Root)。src/App.tsx 301 行 + src/main.tsx 23 行 + src/index.css 7 行",
+      "linesNote": "コンボボックスの候補リストを自分で書いているぶん、他のライブラリより行数が増えている (daisyUI が持たないため)"
+    },
+    "freedom": {
+      "a": "possible",
+      "b": "possible",
+      "c": "impossible",
+      "editedPlaces": 1,
+      "note": "(a)(b) は CSS の @plugin daisyui/theme 1箇所。ただし角丸は --radius-field / --radius-box / --radius-selector の3値を指定する。(c) はアニメ差し替えの公式な口が無く、CSS を自分で書くことになる"
+    },
+    "stack": {
+      "frameworks": ["react", "vue", "svelte", "angular", "素の HTML"],
+      "ssr": true,
+      "rsc": true,
+      "styling": "Tailwind CSS プラグイン (クラス名のみ・JavaScript を持たない)",
+      "fetchedAt": "2026-08-02",
+      "note": "CSS だけのライブラリなので、フレームワークを選ばない。RSC でも動く (クライアント側の JavaScript が無いため)"
+    },
+    "a11y": {
+      "axeVersion": "4.12.1",
+      "violations": { "initial": 3, "dialog": 0, "formError": 3 },
+      "violationRules": {
+        "initial": ["color-contrast", "landmark-one-main", "region"],
+        "dialog": [],
+        "formError": ["color-contrast", "landmark-one-main", "region"]
+      },
+      "keyboard": "complete",
+      "comboArrowEnter": false,
+      "tabArrowKeys": false,
+      "focusTrap": true,
+      "escClose": true,
+      "note": "矢印キー操作は baseline と同じく効かない。daisyUI は CSS クラスだけを配り JavaScript を持たないため、キーボード操作は自分で書くことになる。焦点閉じ込めと Esc が効くのは素の dialog 要素の機能"
+    },
+    "maintenance": {
+      "stars": 41913,
+      "commits90d": 218,
+      "latestRelease": "2026-08-02",
+      "latestVersion": "5.7.11",
+      "lastPush": "2026-08-02",
+      "openIssues": 30,
+      "weeklyDownloads": 845641,
+      "downloadsPackage": "daisyui",
+      "downloadsWindow": "2026-07-26/2026-08-01",
+      "docsSearch": true,
+      "fetchedAt": "2026-08-02"
+    }
+  },
+  "parts": [
+    { "name": "テーブル", "tier": "free", "source": "https://daisyui.com/components/table", "fetchedAt": "2026-08-02", "note": "見た目のクラスのみ。並べ替えは自分で書く" },
+    { "name": "データグリッド (仮想化・列固定)", "tier": "none", "source": "https://daisyui.com/components", "fetchedAt": "2026-08-02", "note": "仮想化も列固定も持たない (JavaScript を持たないため)" },
+    { "name": "日付入力", "tier": "free", "source": "https://daisyui.com/components/calendar", "fetchedAt": "2026-08-02", "note": "素の date 入力に input クラスを当てる。公式が代替として案内している" },
+    { "name": "カレンダー", "tier": "none", "source": "https://daisyui.com/components/calendar", "fetchedAt": "2026-08-02", "note": "盤面そのものは持たない。Cally / React Day Picker / Vanilla Calendar Pro という別ライブラリにスタイルを当てる方法を案内している" },
+    { "name": "グラフ", "tier": "none", "source": "https://daisyui.com/skills/daisyui-charts", "fetchedAt": "2026-08-02", "note": "ApexCharts (別ライブラリ) の作例集。daisyUI 自体は描画しない" },
+    { "name": "コンボボックス", "tier": "none", "source": "https://daisyui.com/components", "fetchedAt": "2026-08-02", "note": "候補の絞り込みや矢印キー操作を持たない。今回は素の HTML で自作した" },
+    { "name": "コマンドパレット", "tier": "none", "source": "https://daisyui.com/components", "fetchedAt": "2026-08-02" },
+    { "name": "トースト", "tier": "free", "source": "https://daisyui.com/components/toast", "fetchedAt": "2026-08-02", "note": "位置と見た目のクラス。出し入れの制御は自分で書く" },
+    { "name": "ダイアログ", "tier": "free", "source": "https://daisyui.com/components/modal", "fetchedAt": "2026-08-02", "note": "素の dialog 要素に modal クラスを当てる。焦点閉じ込めと Esc はブラウザの機能" },
+    { "name": "ドロワー", "tier": "free", "source": "https://daisyui.com/components/drawer", "fetchedAt": "2026-08-02", "note": "チェックボックスで開閉する CSS だけの実装" },
+    { "name": "タブ", "tier": "free", "source": "https://daisyui.com/components/tab", "fetchedAt": "2026-08-02", "note": "ラジオボタン方式。矢印キーでの切り替えは持たない" },
+    { "name": "フォーム検証", "tier": "free", "source": "https://daisyui.com/components/validator", "fetchedAt": "2026-08-02", "note": "validator クラスで HTML 標準の検証結果に応じて色を変える。検証機構そのものはブラウザの機能" },
+    { "name": "ファイルアップロード", "tier": "free", "source": "https://daisyui.com/components/file-input", "fetchedAt": "2026-08-02", "note": "素の file 入力の装飾。ドラッグ＆ドロップは持たない" },
+    { "name": "リッチテキスト", "tier": "none", "source": "https://daisyui.com/components", "fetchedAt": "2026-08-02" },
+    { "name": "ページネーション", "tier": "free", "source": "https://daisyui.com/components/pagination", "fetchedAt": "2026-08-02", "note": "ボタンの並びの見た目。ページ送りの処理は自分で書く" }
+  ],
+  "aux": { "jsGzipBytes": 64360, "cssGzipBytes": 10580, "fontFiles": 0, "deps": 2, "devDeps": 10 },
+  "deepDive": ["a11y", "parts", "speed"]
+}
