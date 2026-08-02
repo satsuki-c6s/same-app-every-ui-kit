@@ -1,0 +1,64 @@
+{
+  "kit": "mantine",
+  "version": "9.5.0",
+  "measuredAt": "2026-08-02",
+  "prereg": "v2",
+  "base": { "framework": "react@19.2.8", "bundler": "vite@8.2.0", "node": "25.2.1", "typescript": "6.0.3" },
+  "axes": {
+    "speed": { "implLines": 269, "vendoredLines": 0, "components": 2, "steps": 2 },
+    "freedom": { "a": "possible", "b": "possible", "c": "possible", "editedPlaces": 1 },
+    "stack": {
+      "frameworks": ["react"],
+      "ssr": true,
+      "rsc": false,
+      "styling": "プレーン CSS (CSS モジュール + CSS 変数)",
+      "fetchedAt": "2026-08-02"
+    },
+    "a11y": {
+      "axeVersion": "4.12.1",
+      "violations": { "initial": 3, "dialog": 2, "formError": 3 },
+      "violationRules": {
+        "initial": ["color-contrast", "landmark-one-main", "region"],
+        "dialog": ["color-contrast", "region"],
+        "formError": ["color-contrast", "landmark-one-main", "region"]
+      },
+      "keyboard": "complete",
+      "comboArrowEnter": true,
+      "tabArrowKeys": true,
+      "focusTrap": true,
+      "escClose": true
+    },
+    "maintenance": {
+      "stars": 31520,
+      "commits90d": 293,
+      "latestRelease": "2026-07-27",
+      "latestVersion": "9.5.0",
+      "lastPush": "2026-07-31",
+      "openIssues": 53,
+      "weeklyDownloads": 2301982,
+      "downloadsPackage": "@mantine/core",
+      "downloadsWindow": "2026-07-25/2026-07-31",
+      "docsSearch": true,
+      "fetchedAt": "2026-08-02"
+    }
+  },
+  "parts": [
+    { "name": "テーブル", "tier": "free", "source": "https://mantine.dev/core/table/", "fetchedAt": "2026-08-02" },
+    { "name": "データグリッド (仮想化・列固定)", "tier": "none", "source": "https://mantine.dev/core/table/", "fetchedAt": "2026-08-02", "note": "公式は Table の stickyHeader のみ。仮想化・列固定を持つ DataGrid は公式に無い (第三者の mantine-datatable は別物)" },
+    { "name": "日付入力", "tier": "free", "source": "https://mantine.dev/dates/date-input/", "fetchedAt": "2026-08-02" },
+    { "name": "カレンダー", "tier": "free", "source": "https://mantine.dev/dates/calendar/", "fetchedAt": "2026-08-02" },
+    { "name": "グラフ", "tier": "free", "source": "https://mantine.dev/charts/getting-started/", "fetchedAt": "2026-08-02", "note": "@mantine/charts 9.5.0 / MIT" },
+    { "name": "コンボボックス", "tier": "free", "source": "https://mantine.dev/core/combobox/", "fetchedAt": "2026-08-02" },
+    { "name": "コマンドパレット", "tier": "free", "source": "https://mantine.dev/x/spotlight/", "fetchedAt": "2026-08-02", "note": "@mantine/spotlight 9.5.0 / MIT" },
+    { "name": "トースト", "tier": "free", "source": "https://mantine.dev/x/notifications/", "fetchedAt": "2026-08-02" },
+    { "name": "ダイアログ", "tier": "free", "source": "https://mantine.dev/core/modal/", "fetchedAt": "2026-08-02" },
+    { "name": "ドロワー", "tier": "free", "source": "https://mantine.dev/core/drawer/", "fetchedAt": "2026-08-02" },
+    { "name": "タブ", "tier": "free", "source": "https://mantine.dev/core/tabs/", "fetchedAt": "2026-08-02" },
+    { "name": "フォーム検証", "tier": "free", "source": "https://mantine.dev/form/use-form/", "fetchedAt": "2026-08-02", "note": "@mantine/form 9.5.0 / MIT。検証機構そのものを公式が持つ" },
+    { "name": "ファイルアップロード", "tier": "free", "source": "https://mantine.dev/x/dropzone/", "fetchedAt": "2026-08-02", "note": "@mantine/dropzone 9.5.0 / MIT" },
+    { "name": "リッチテキスト", "tier": "free", "source": "https://mantine.dev/x/tiptap/", "fetchedAt": "2026-08-02", "note": "@mantine/tiptap 9.5.0 / MIT。Tiptap の上に載せる公式ラッパ" },
+    { "name": "ページネーション", "tier": "free", "source": "https://mantine.dev/core/pagination/", "fetchedAt": "2026-08-02" }
+  ],
+  "aux": { "jsGzipBytes": 143040, "cssGzipBytes": 37120, "fontFiles": 0, "deps": 7, "devDeps": 7 },
+  "deepDive": ["parts", "a11y", "speed"]
+}
