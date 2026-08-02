@@ -1,0 +1,73 @@
+{
+  "kit": "antd",
+  "version": "6.5.3",
+  "measuredAt": "2026-08-02",
+  "prereg": "v2",
+  "base": { "framework": "react@19.2.8", "bundler": "vite@8.2.0", "node": "25.2.1", "typescript": "6.0.3" },
+  "axes": {
+    "speed": {
+      "implLines": 286,
+      "vendoredLines": 0,
+      "components": 2,
+      "steps": 2,
+      "stepsNote": "公式手順どおりに始めた場合の手数。実際には土台の版を揃えるため第2回 (MUI) の設定ファイルを複製しており、この2手は実行していない",
+      "componentsNote": "自分で書いたコンポーネント数 (App + Root)。src/App.tsx 260 行 + src/main.tsx 26 行"
+    },
+    "freedom": { "a": "possible", "b": "possible", "c": "possible", "editedPlaces": 1 },
+    "stack": {
+      "frameworks": ["react"],
+      "ssr": true,
+      "rsc": false,
+      "styling": "CSS-in-JS (@ant-design/cssinjs)",
+      "fetchedAt": "2026-08-02"
+    },
+    "a11y": {
+      "axeVersion": "4.12.1",
+      "violations": { "initial": 3, "dialog": 2, "formError": 3 },
+      "violationRules": {
+        "initial": ["color-contrast", "landmark-one-main", "region"],
+        "dialog": ["color-contrast", "region"],
+        "formError": ["color-contrast", "landmark-one-main", "region"]
+      },
+      "keyboard": "complete",
+      "comboArrowEnter": true,
+      "tabArrowKeys": true,
+      "focusTrap": true,
+      "escClose": true,
+      "note": "タブの矢印キーは焦点だけを動かし選択は確定操作で行う方式。Esc ではダイアログを DOM に残したまま display:none にする。どちらも計測スクリプトの判定を実装非依存に直してから測った値"
+    },
+    "maintenance": {
+      "stars": 98897,
+      "commits90d": 616,
+      "latestRelease": "2026-07-31",
+      "latestVersion": "6.5.3",
+      "lastPush": "2026-08-02",
+      "openIssues": 1112,
+      "weeklyDownloads": 3686447,
+      "downloadsPackage": "antd",
+      "downloadsWindow": "2026-07-25/2026-07-31",
+      "docsSearch": true,
+      "docsSearchNote": "検索欄あり (placeholder: Search in components)。Mantine のような Ctrl+K の表記は無い",
+      "fetchedAt": "2026-08-02"
+    }
+  },
+  "parts": [
+    { "name": "テーブル", "tier": "free", "source": "https://ant.design/components/table", "fetchedAt": "2026-08-02" },
+    { "name": "データグリッド (仮想化・列固定)", "tier": "free", "source": "https://ant.design/components/table", "fetchedAt": "2026-08-02", "note": "Table に virtual を渡すと仮想スクロール、列は fixed: 'start'/'end' で固定。MUI では Pro (有料)、Mantine では公式に無い機能を無料の本体が持つ" },
+    { "name": "日付入力", "tier": "free", "source": "https://ant.design/components/date-picker", "fetchedAt": "2026-08-02" },
+    { "name": "カレンダー", "tier": "free", "source": "https://ant.design/components/calendar", "fetchedAt": "2026-08-02" },
+    { "name": "グラフ", "tier": "free", "source": "https://ant.design/components/charts", "fetchedAt": "2026-08-02", "note": "@ant-design/charts 2.6.7 / MIT。本体とは別パッケージ" },
+    { "name": "コンボボックス", "tier": "free", "source": "https://ant.design/components/select", "fetchedAt": "2026-08-02", "note": "Select に showSearch。候補は仮想スクロールで描画する" },
+    { "name": "コマンドパレット", "tier": "none", "source": "https://ant.design/components/overview", "fetchedAt": "2026-08-02", "note": "公式に該当コンポーネントが無い" },
+    { "name": "トースト", "tier": "free", "source": "https://ant.design/components/message", "fetchedAt": "2026-08-02" },
+    { "name": "ダイアログ", "tier": "free", "source": "https://ant.design/components/modal", "fetchedAt": "2026-08-02" },
+    { "name": "ドロワー", "tier": "free", "source": "https://ant.design/components/drawer", "fetchedAt": "2026-08-02" },
+    { "name": "タブ", "tier": "free", "source": "https://ant.design/components/tabs", "fetchedAt": "2026-08-02" },
+    { "name": "フォーム検証", "tier": "free", "source": "https://ant.design/components/form", "fetchedAt": "2026-08-02", "note": "Form.Item の rules と validateFields。検証機構そのものを本体が持つ" },
+    { "name": "ファイルアップロード", "tier": "free", "source": "https://ant.design/components/upload", "fetchedAt": "2026-08-02" },
+    { "name": "リッチテキスト", "tier": "none", "source": "https://ant.design/components/overview", "fetchedAt": "2026-08-02", "note": "公式に該当コンポーネントが無い" },
+    { "name": "ページネーション", "tier": "free", "source": "https://ant.design/components/pagination", "fetchedAt": "2026-08-02" }
+  ],
+  "aux": { "jsGzipBytes": 329360, "cssGzipBytes": 0, "fontFiles": 0, "deps": 4, "devDeps": 7 },
+  "deepDive": ["parts", "speed", "a11y"]
+}
