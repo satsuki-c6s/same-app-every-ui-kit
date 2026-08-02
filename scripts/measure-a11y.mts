@@ -12,6 +12,7 @@
  *   - ダイアログの焦点閉じ込めと Esc
  */
 import { spawn } from 'node:child_process';
+import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { AxeBuilder } from '@axe-core/playwright';
@@ -110,21 +111,54 @@ async function tabArrowKeys(page: Page): Promise<boolean> {
   await first.focus();
   await page.keyboard.press('ArrowRight');
   await page.waitForTimeout(SETTLE_MS);
+  // 焦点が2枚目のタブへ移ったかで判定する。
+  // 完全一致ではなく includes にするのは、読み上げ用の文字を混ぜる実装があるため
+  // (Ant Design は "Tab 2 of 2登録" のように出す)。ここを厳しくすると
+  // 「動いているのに動いていない」と誤判定する (2026-08-02)。
   return page.evaluate(() => {
     const el = document.activeElement;
-    return el ? (el.textContent ?? '').trim() === '登録' : false;
+    if (!el) return false;
+    const isTab = el.getAttribute('role') === 'tab' || Boolean(el.closest('[role="tab"]'));
+    return isTab && (el.textContent ?? '').includes('登録');
   });
 }
 
+/**
+ * 配信されているのが本当にこの kit かを確かめる (capture.mts と同じ検査)。
+ * 2026-08-02 に `npx vite` が別 kit の vite を別 kit のルートで起動し、
+ * antd を測ったつもりで shadcn-ui と MUI を測る事故が起きたため入れている。
+ */
+async function assertServingKit(url: string): Promise<void> {
+  const expected = /<title>([^<]*)<\/title>/.exec(
+    await readFile(path.join(repoRoot, kit, 'index.html'), 'utf8'),
+  )?.[1];
+  const served = /<title>([^<]*)<\/title>/.exec(await (await fetch(url)).text())?.[1];
+  if (!expected || served !== expected) {
+    throw new Error(
+      `${port} 番が配信しているのは ${kit} ではありません (期待 "${expected}" / 実際 "${served}")。` +
+        '別の preview がポートを掴んでいます。プロセスを止めてから測り直してください。',
+    );
+  }
+}
+
 async function main(): Promise<void> {
-  const server = spawn('npx', ['vite', 'preview', '--port', String(port), '--strictPort'], {
-    cwd: path.join(repoRoot, kit),
-    shell: process.platform === 'win32',
-    stdio: 'ignore',
-  });
+  const kitDir = path.join(repoRoot, kit);
+  // vite の実体をパスで名指しする (npx は解決先を親まで遡り、別 kit を起動しうる)
+  const server = spawn(
+    process.execPath,
+    [
+      path.join(kitDir, 'node_modules', 'vite', 'bin', 'vite.js'),
+      'preview',
+      '--port',
+      String(port),
+      '--strictPort',
+    ],
+    { cwd: kitDir, stdio: 'ignore' },
+  );
   const browser = await chromium.launch({ headless: true });
   try {
     await waitForServer(`http://localhost:${port}/`);
+    await assertServingKit(`http://localhost:${port}/`);
     // axe は browser.newContext() 由来の page を要求する (newPage 直呼びは弾かれる)
     const context = await browser.newContext({ viewport: VIEWPORT, deviceScaleFactor: 1 });
     const page = await context.newPage();
@@ -161,7 +195,16 @@ async function main(): Promise<void> {
 
     await page.keyboard.press('Escape');
     await page.waitForTimeout(SETTLE_MS);
-    const escClose = (await page.locator('dialog[open], [role="dialog"]').count()) === 0;
+    // 「閉じた」の判定は要素の有無ではなく**見えているか**で見る。
+    // DOM から消す実装と、残したまま display:none にする実装 (Ant Design) があり、
+    // 存在数だけで見ると後者を「閉じない」と誤判定する (2026-08-02)。
+    const escClose = await page.evaluate(() => {
+      const dialogs = [...document.querySelectorAll('dialog[open], [role="dialog"]')];
+      return dialogs.every((d) => {
+        const s = getComputedStyle(d);
+        return s.display === 'none' || s.visibility === 'hidden' || !(d as HTMLElement).offsetParent;
+      });
+    });
 
     await page
       .locator('button, [role="tab"]')

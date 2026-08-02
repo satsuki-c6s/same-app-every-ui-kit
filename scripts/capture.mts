@@ -8,10 +8,10 @@
  * 手撮りはしない。条件が揺れると「同じ場面を比べた」と言えなくなるため。
  */
 import { spawn } from 'node:child_process';
-import { mkdir, readdir, unlink } from 'node:fs/promises';
+import { mkdir, readFile, readdir, unlink } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { chromium, type Page } from 'playwright';
+import { chromium, type Locator, type Page } from 'playwright';
 
 const VIEWPORT = { width: 1920, height: 1080 } as const;
 const SETTLE_MS = 400;
@@ -42,6 +42,24 @@ async function waitForServer(url: string, timeoutMs = 60_000): Promise<void> {
   throw new Error(`サーバが起動しませんでした: ${url}`);
 }
 
+/**
+ * 配信されているのが本当にこの kit かを確かめる。
+ * ポートを掴んだ別プロセスや、別 kit のルートで起動した vite を検出する。
+ * 判定は各 kit の index.html の <title> を突き合わせるだけ (実装に手を入れない)。
+ */
+async function assertServingKit(url: string): Promise<void> {
+  const expected = /<title>([^<]*)<\/title>/.exec(
+    await readFile(path.join(kitDir, 'index.html'), 'utf8'),
+  )?.[1];
+  const served = /<title>([^<]*)<\/title>/.exec(await (await fetch(url)).text())?.[1];
+  if (!expected || served !== expected) {
+    throw new Error(
+      `${port} 番が配信しているのは ${kit} ではありません (期待 "${expected}" / 実際 "${served}")。` +
+        '別の preview がポートを掴んでいます。プロセスを止めてから測り直してください。',
+    );
+  }
+}
+
 async function shoot(page: Page, name: string): Promise<void> {
   await page.waitForTimeout(SETTLE_MS);
   await page.screenshot({ path: path.join(shotsDir, name) });
@@ -61,6 +79,41 @@ async function clickControl(page: Page, label: string): Promise<void> {
     .click();
 }
 
+/**
+ * 開いているコンボボックスから候補を選ぶ。
+ *
+ * 候補が DOM に全部あるとは限らない。Ant Design は**仮想スクロール**で見えている
+ * 数件しか描画しないため、`TypeScript` を直接押そうとすると見つからない (2026-08-02)。
+ * そこで「見えていれば押す、無ければ絞り込んでから押す」の二段にする。
+ * どの実装でも同じ操作になり、既存実装の結果も変わらない。
+ */
+async function pickOption(page: Page, combo: Locator, label: string): Promise<void> {
+  const optionByText = () =>
+    page.locator('[role="option"]').filter({ hasText: new RegExp(`^${label}$`) }).first();
+
+  // 候補が DOM に無ければ打ち込んで絞り込む (Ant Design は仮想スクロールで数件しか描画しない)
+  if ((await optionByText().count()) === 0 && (await combo.getAttribute('type')) !== null) {
+    await combo.fill(label);
+    await page.waitForTimeout(SETTLE_MS);
+  }
+
+  const option = optionByText();
+  if ((await option.count()) > 0) {
+    // Playwright の可視判定は実装によって false になる (Ant Design の option は
+    // 高さを子要素が持つ)。座標を自分で出して押す — 見えている要素に確実に当たる
+    const box = await option.boundingBox();
+    if (box) {
+      await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
+    } else {
+      await option.click({ force: true });
+    }
+  } else {
+    // role を持たない実装 (素の HTML で組んだ baseline など) はボタンとして押す
+    await clickControl(page, label);
+  }
+  await page.waitForTimeout(SETTLE_MS);
+}
+
 /** 実装ごとに DOM 構造が違うので、テキストと役割で引く (CSS クラスに依存しない)。 */
 async function run(page: Page): Promise<void> {
   await page.goto(`http://localhost:${port}/`, { waitUntil: 'load' });
@@ -77,12 +130,12 @@ async function run(page: Page): Promise<void> {
   await combo.click();
   await shoot(page, '03-combobox.png');
 
-  await clickControl(page, 'TypeScript');
+  await pickOption(page, combo, 'TypeScript');
   await shoot(page, '04-filter.png');
   // 選ぶとコンボボックスは閉じるので、「すべて」に戻すには開き直す
   await combo.click();
   await page.waitForTimeout(SETTLE_MS);
-  await clickControl(page, 'すべて');
+  await pickOption(page, combo, 'すべて');
 
   await page.getByRole('button', { name: /リポジトリ$/ }).first().click();
   await shoot(page, '05-sorted.png');
@@ -125,15 +178,25 @@ async function main(): Promise<void> {
     if (file.endsWith('.png')) await unlink(path.join(shotsDir, file));
   }
 
+  // `npx vite` は解決先を親ディレクトリまで遡るため、別 kit の vite が別 kit の
+  // ルートで起動することがある (2026-08-02 に実際に起きた: antd を測ったつもりで
+  // shadcn-ui と MUI を測っていた)。vite の実体をパスで名指しして事故を止める。
   const server = spawn(
-    'npx',
-    ['vite', 'preview', '--port', String(port), '--strictPort'],
-    { cwd: kitDir, shell: process.platform === 'win32', stdio: 'ignore' },
+    process.execPath,
+    [
+      path.join(kitDir, 'node_modules', 'vite', 'bin', 'vite.js'),
+      'preview',
+      '--port',
+      String(port),
+      '--strictPort',
+    ],
+    { cwd: kitDir, stdio: 'ignore' },
   );
 
   const browser = await chromium.launch({ headless: true });
   try {
     await waitForServer(`http://localhost:${port}/`);
+    await assertServingKit(`http://localhost:${port}/`);
     const page = await browser.newPage({ viewport: VIEWPORT, deviceScaleFactor: 1 });
     await run(page);
   } finally {
