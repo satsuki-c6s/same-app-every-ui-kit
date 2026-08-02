@@ -114,7 +114,7 @@ export function App() {
       </div>
 
       <footer className="relative mt-10 text-sm text-zinc-500">
-        取り込んだ部品 9 種類 / 937 行。すべて公式 registry から無料で取得したもの。
+        取り込んだ部品 9 種類 / 928 行。すべて公式 registry から無料で取得したもの。
       </footer>
     </div>
   );
