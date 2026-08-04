@@ -1,0 +1,82 @@
+{
+  "kit": "aceternity",
+  "version": "registry (2026-08-04 取得)",
+  "measuredAt": "2026-08-04",
+  "prereg": "v2",
+  "scope": "演出デモのみ (共通デモ9要件は作らない)",
+  "scopeReason": "第8回 Magic UI と同じ判断。部品が演出系に寄っており、表・タブ・選択・入力欄の同条件比較にならない。さらにこの回は部品ソースをリポジトリに置けない事情がある (下記 licensing)",
+  "licensing": {
+    "isOss": false,
+    "note": "Aceternity UI は OSS ではない。公式サイトのライセンスは独自の商用ライセンスで、ソースのストック素材・ソースファイルとしての再配布や、テーマ/テンプレートとしての公開配布を禁じている。そのため取り込んだ部品ソース (src/components/ui/) は .gitignore で除外し、このリポジトリに含めていない",
+    "licenseUrl": "https://ui.aceternity.com/licence",
+    "repoNote": "GitHub の manuarora700/ui.aceternity は license 表記なし・2024-01 から更新なし (2026-08-04 に API で確認)。部品の正本はサイトの registry",
+    "fetchedAt": "2026-08-04"
+  },
+  "base": { "framework": "react@19.2.8", "bundler": "vite@8.2.0", "node": "25.2.1", "typescript": "6.0.3", "tailwindcss": "4.3.3" },
+  "axes": {
+    "speed": {
+      "implLines": 196,
+      "vendoredLines": 1005,
+      "components": 9,
+      "steps": 3,
+      "note": "共通デモではなく演出デモの値。自作 196 行は演出デモの画面 (App/main/index.css/utils)。取り込み 1,005 行は registry から取得した 9 部品のソース。配布方式は shadcn / Magic UI と同じ「ソースを自分のリポジトリにコピーする」型だが、ここではライセンス上コピーを公開リポジトリに置けない",
+      "vendoredParts": ["meteors", "background-beams", "aurora-background", "text-generate-effect", "typewriter-effect", "moving-border", "infinite-moving-cards", "3d-card", "animated-tooltip"]
+    },
+    "stack": {
+      "frameworks": ["react"],
+      "ssr": true,
+      "rsc": false,
+      "styling": "Tailwind CSS + motion (取り込んだ部品が使う)",
+      "fetchedAt": "2026-08-04",
+      "note": "registry は shadcn 系の schema。公式の想定は Next.js だが Vite でも動いた (use client はバンドラが無視する)"
+    },
+    "a11y": {
+      "axeVersion": "4.12.1",
+      "note": "共通デモを作っていないため、他実装と同じ条件での比較値は無い",
+      "measured": false
+    },
+    "maintenance": {
+      "stars": null,
+      "commits90d": null,
+      "openIssues": null,
+      "docsSearch": true,
+      "fetchedAt": "2026-08-04",
+      "note": "本体の公式 OSS リポジトリが無いため、スター数・コミット数・issue 数という物差し自体が使えない。これも「OSS ではない」ことの実務的な帰結として記録する"
+    }
+  },
+  "parts": {
+    "total": 147,
+    "totalNote": "sitemap.xml の /components/ 配下ページ数 (2026-08-04 実測)。無料と All-Access 込みの部品ページ総数で、無料だけの正確な内訳はページ表記から機械的に判別できなかった",
+    "allFree": false,
+    "commonDemoParts": {
+      "テーブル": "無し",
+      "タブ": "無し",
+      "選択・コンボボックス": "無し",
+      "ダイアログ": "あり (animated-modal。演出寄り)",
+      "入力欄": "あり (placeholders-and-vanish-input など演出付き入力)",
+      "トースト": "無し",
+      "カレンダー・日付": "無し",
+      "ボタン": "あり (moving-border ほか。見た目の演出)"
+    },
+    "fetchedAt": "2026-08-04"
+  },
+  "pricing": {
+    "core": "無料 (ただし OSS ライセンスではない独自ライセンス)",
+    "annual": "Annual Access $169/年 (定価表示 $249 の値引き表示・2026-08-04 時点)",
+    "lifetime": "Lifetime Access $199 買い切り (定価表示 $299 の値引き表示・最人気表示)",
+    "proContent": "200+ の premium Blocks と 12+ のテンプレート、1年分の更新 (Annual) / 買い切り (Lifetime)",
+    "source": "https://ui.aceternity.com/pricing",
+    "fetchedAt": "2026-08-04",
+    "note": "Magic UI (本体 MIT + 別売テンプレ) と違い、本体の無料部品も OSS ライセンスではない。無料と有料の線に加えて「自由に再配布できるか」の線が引かれている"
+  },
+  "aux": { "jsGzipBytes": 120890, "cssGzipBytes": 6500, "deps": 5, "devDeps": 9 },
+  "measurementNotes": [
+    "部品ページ数は公式サイトの表示ではなく sitemap.xml から数えた (147件)",
+    "演出は静止画では伝わらないため、1920x1080 で 5.9 秒の録画を撮って動画に差し込んだ (CDP screencast)",
+    "Pro のコード・アセットは一切取得・コミットしていない。価格と内容は公式ページからの転記のみ",
+    "Tailwind v4 の自動ソース検出は .gitignore を尊重するため、gitignore した部品ディレクトリのクラスが生成されず演出が全部止まる罠を踏んだ。@source \"./components/ui\" で明示的に含めて解決",
+    "dark: 変種は Tailwind v4 既定の media 戦略では効かない。公式セットアップどおり @custom-variant dark で class 戦略に切り替えた",
+    "TypewriterEffectSmooth は headless 録画環境で whileInView が発火せず文字が出なかったため、通常版 TypewriterEffect を使った",
+    "ビルド互換のため moving-border.tsx の useRef() を useRef(null) に1箇所だけ直した (React 19 の型で引数必須のため)。それ以外の部品ソースは無改変"
+  ]
+}

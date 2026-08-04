@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+/*
+ * Aceternity UI は部品ページの手順どおり、部品が使うアニメーションを
+ * Tailwind の theme に自分で足す (公式ドキュメントの tailwind.config 記載を v4 の @theme に移植)。
+ * 部品ソース (src/components/ui/) はライセンス上リポジトリに含めない。README 参照。
+ *
+ * 罠: Tailwind v4 の自動ソース検出は .gitignore を尊重するため、
+ * gitignore した部品ディレクトリはスキャンされずクラスが生成されない。
+ * @source で明示的に含める (2026-08-04 に実際に踏んだ)。
+ */
+@source "./components/ui";
+
+/* 部品は dark: 変種を class 戦略で使う前提 (index.html の <html class="dark">)。
+ * Tailwind v4 の既定は media 戦略なので、公式セットアップどおり class 戦略に切り替える。 */
+@custom-variant dark (&:where(.dark, .dark *));
+@theme inline {
+  --animate-aurora: aurora 60s linear infinite;
+  --animate-meteor-effect: meteor 5s linear infinite;
+  --animate-scroll: scroll var(--animation-duration, 40s) var(--animation-direction, forwards)
+    linear infinite;
+
+  @keyframes aurora {
+    from {
+      background-position: 50% 50%, 50% 50%;
+    }
+    to {
+      background-position: 350% 50%, 350% 50%;
+    }
+  }
+  @keyframes meteor {
+    0% {
+      transform: rotate(var(--angle, 215deg)) translateX(0);
+      opacity: 1;
+    }
+    70% {
+      opacity: 1;
+    }
+    100% {
+      transform: rotate(var(--angle, 215deg)) translateX(-500px);
+      opacity: 0;
+    }
+  }
+  @keyframes scroll {
+    to {
+      transform: translate(calc(-50% - 0.5rem));
+    }
+  }
+}

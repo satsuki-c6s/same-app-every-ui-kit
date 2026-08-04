@@ -1,0 +1,88 @@
+{
+  "kit": "arkui",
+  "version": "5.38.0",
+  "measuredAt": "2026-08-04",
+  "prereg": "v2",
+  "base": { "framework": "react@19.2.8", "bundler": "vite@8.2.0", "node": "25.2.1", "typescript": "6.0.3" },
+  "axes": {
+    "speed": {
+      "implLines": 789,
+      "vendoredLines": 0,
+      "components": 2,
+      "steps": 2,
+      "stepsNote": "公式手順どおりに始めた場合の手数 (create vite + npm i @ark-ui/react)。実際には土台の版を揃えるため radix 回の設定ファイルを複製している",
+      "componentsNote": "自分で書いたコンポーネント数 (App + Root)。src/App.tsx 395 行 + src/main.tsx 26 行 + src/style.css 368 行",
+      "linesNote": "9実装で最多。CSS 368 行に加え、DatePicker が組み立て式 (View/Table/Cell を自分で並べる) なので App.tsx が radix 回の 257 行から 395 行に伸びた。部品はあるのに行数は baseline (610 行) を超える"
+    },
+    "freedom": {
+      "a": "possible",
+      "b": "possible",
+      "c": "possible",
+      "editedPlaces": 1,
+      "note": "radix 回と同じ自前 CSS のため同じ結果。CSS 変数 1値ずつで済む。テーマという仕組み自体が無い"
+    },
+    "stack": {
+      "frameworks": ["react", "vue", "svelte", "solid"],
+      "ssr": true,
+      "rsc": false,
+      "rscNote": "部品は client 側",
+      "styling": "持たない (見た目は利用側が書く)",
+      "fetchedAt": "2026-08-04",
+      "note": "第6回 Chakra UI v3 の土台。作っているのも同じ Chakra チーム。中身の状態機械は Zag.js"
+    },
+    "a11y": {
+      "axeVersion": "4.12.1",
+      "violations": { "initial": 2, "dialog": 0, "formError": 3 },
+      "violationRules": {
+        "initial": ["landmark-one-main", "region"],
+        "dialog": [],
+        "formError": ["color-contrast", "landmark-one-main", "region"]
+      },
+      "keyboard": "complete",
+      "comboArrowEnter": true,
+      "tabArrowKeys": true,
+      "focusTrap": true,
+      "escClose": true,
+      "note": "キーボード操作は全項目通過。radix 回と同じ自前 CSS (Radix Colors の公式値) を使ったため、エラー表示中の color-contrast も同じ箇所 (#0090ff / #e5484d に白文字) で出る。Ark の部品由来ではなく配色由来"
+    },
+    "maintenance": {
+      "stars": 5315,
+      "commits90d": 81,
+      "latestRelease": "2026-08-03",
+      "latestVersion": "5.38.0",
+      "lastPush": "2026-08-04",
+      "openIssues": 16,
+      "weeklyDownloads": 990463,
+      "downloadsPackage": "@ark-ui/react",
+      "downloadsWindow": "2026-07-28/2026-08-03",
+      "docsSearch": true,
+      "fetchedAt": "2026-08-04",
+      "note": "未解決 issue 16 件は9実装で最少。スター 5,315 も最少だが、Chakra UI v3 の土台として間接的に使われる層"
+    }
+  },
+  "parts": [
+    { "name": "テーブル", "tier": "none", "source": "@ark-ui/react 5.38.0 の export 一覧", "fetchedAt": "2026-08-04", "note": "素の table を自分で書く" },
+    { "name": "データグリッド (仮想化・列固定)", "tier": "none", "source": "@ark-ui/react 5.38.0 の export 一覧", "fetchedAt": "2026-08-04" },
+    { "name": "日付入力", "tier": "free", "source": "https://ark-ui.com/react/docs/components/date-input", "fetchedAt": "2026-08-04", "note": "DateInput。DatePicker 側の入力欄も使える" },
+    { "name": "カレンダー", "tier": "free", "source": "https://ark-ui.com/react/docs/components/date-picker", "fetchedAt": "2026-08-04", "note": "DatePicker。盤面は View/Table を自分で並べる組み立て式" },
+    { "name": "グラフ", "tier": "none", "source": "@ark-ui/react 5.38.0 の export 一覧", "fetchedAt": "2026-08-04" },
+    { "name": "コンボボックス", "tier": "free", "source": "https://ark-ui.com/react/docs/components/combobox", "fetchedAt": "2026-08-04", "note": "入力しながら絞り込める本物の Combobox (Radix には無かった)" },
+    { "name": "コマンドパレット", "tier": "none", "source": "@ark-ui/react 5.38.0 の export 一覧", "fetchedAt": "2026-08-04", "note": "Combobox で組む例はあるが専用部品は無い" },
+    { "name": "トースト", "tier": "free", "source": "https://ark-ui.com/react/docs/components/toast", "fetchedAt": "2026-08-04" },
+    { "name": "ダイアログ", "tier": "free", "source": "https://ark-ui.com/react/docs/components/dialog", "fetchedAt": "2026-08-04" },
+    { "name": "ドロワー", "tier": "free", "source": "@ark-ui/react 5.38.0 の export 一覧 (Drawer)", "fetchedAt": "2026-08-04", "note": "専用の Drawer がある (Radix は Dialog で自作)" },
+    { "name": "タブ", "tier": "free", "source": "https://ark-ui.com/react/docs/components/tabs", "fetchedAt": "2026-08-04" },
+    { "name": "フォーム検証", "tier": "free", "source": "@ark-ui/react 5.38.0 の export 一覧 (Field/Fieldset)", "fetchedAt": "2026-08-04", "note": "Field はエラー表示の部品。検証ロジックは持たないので、今回は共有ロジックで検証した" },
+    { "name": "ファイルアップロード", "tier": "free", "source": "https://ark-ui.com/react/docs/components/file-upload", "fetchedAt": "2026-08-04" },
+    { "name": "リッチテキスト", "tier": "none", "source": "@ark-ui/react 5.38.0 の export 一覧", "fetchedAt": "2026-08-04" },
+    { "name": "ページネーション", "tier": "free", "source": "https://ark-ui.com/react/docs/components/pagination", "fetchedAt": "2026-08-04" }
+  ],
+  "aux": { "jsGzipBytes": 135400, "cssGzipBytes": 1490, "fontFiles": 0, "deps": 3, "devDeps": 7 },
+  "deepDive": ["speed", "parts", "a11y"],
+  "measurementNotes": [
+    "部品の有無は公式サイトではなく @ark-ui/react 5.38.0 の export 一覧で判定した (第6回の教訓)。Root を持つ部品は 52 個 (radix-ui の 35 部品より多い)",
+    "配色・CSS は radix 回の style.css を土台に、部品固有のクラスだけ差し替えた。同じ headless 同士で「書く量と挙動の差」だけを見るため",
+    "Combobox は openOnClick を有効にした (既定はクリックでは開かない)。公式ドキュメントに載っている prop で、テーマ調整には当たらない",
+    "トーストは幅を指定しないと内容幅まで潰れて縦書きになる。--x/--y/--z-index/--opacity の CSS 変数を自分の CSS で受ける必要がある"
+  ]
+}

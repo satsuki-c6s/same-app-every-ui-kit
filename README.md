@@ -19,6 +19,10 @@ YouTube「さつきのOSS研究室」の **UI コンポーネントライブラ�
 | 6 | Chakra UI | [chakra/](./chakra) | (公開後にリンク) |
 | 7 | Radix UI | [radix/](./radix) | (公開後にリンク) |
 | 8 | Magic UI (演出回・比較表外) | [magicui/](./magicui) | (公開後にリンク) |
+| 9 | Ark UI | [arkui/](./arkui) | (公開後にリンク) |
+| 10 | Base UI | [baseui/](./baseui) | (公開後にリンク) |
+| 11 | Aceternity UI (演出回・比較表外・**部品ソース非収録**) | [aceternity/](./aceternity) | (公開後にリンク) |
+| 12 | Tremor | [tremor/](./tremor) | (公開後にリンク) |
 
 公開順は入れ替わることがあるため、**フォルダ名に連番は付けていません**。
 順番はこの表で管理します。

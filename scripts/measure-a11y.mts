@@ -179,9 +179,14 @@ async function main(): Promise<void> {
     // 焦点閉じ込め: Tab を複数回押しても一度も外へ出ないこと。
     // 1回だけ見ると、押せる要素が1つしかないダイアログで activeElement が body に見えて
     // 誤判定する (2026-08-02 に baseline で実際に誤判定した)。
+    // さらに、焦点ガードの span を経由して非同期に閉じ込め直す実装がある
+    // (Base UI 1.7.0 で実際に誤判定した 2026-08-04)。押した直後ではなく
+    // 少し待ってから見る。閉じ込めが本当に壊れている場合は待っても外に居続けるので、
+    // この待ちで「壊れているのに通る」ことはない。
     let focusInsideDialog = true;
     for (let i = 0; i < 6; i += 1) {
       await page.keyboard.press('Tab');
+      await page.waitForTimeout(150);
       const outside = await page.evaluate(() => {
         const el = document.activeElement;
         if (!el || el === document.body) return false;

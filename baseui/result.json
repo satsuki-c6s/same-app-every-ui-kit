@@ -1,0 +1,89 @@
+{
+  "kit": "baseui",
+  "version": "1.7.0",
+  "measuredAt": "2026-08-04",
+  "prereg": "v2",
+  "base": { "framework": "react@19.2.8", "bundler": "vite@8.2.0", "node": "25.2.1", "typescript": "6.0.3" },
+  "axes": {
+    "speed": {
+      "implLines": 626,
+      "vendoredLines": 0,
+      "components": 3,
+      "steps": 2,
+      "stepsNote": "公式手順どおりに始めた場合の手数 (create vite + npm i @base-ui/react)。実際には土台の版を揃えるため radix 回の設定ファイルを複製している。@base-ui/react の追加は added 9 packages (実測)",
+      "componentsNote": "自分で書いたコンポーネント数 (App + AppToasts + Root)。src/App.tsx 272 行 + src/main.tsx 35 行 + src/style.css 319 行",
+      "linesNote": "headless 3実装の中間。Radix 597 行より29行多く、Ark 789 行より163行少ない。トーストが Provider/Viewport/一覧描画の3点セットを要求するぶん main.tsx と App が radix 回より伸びた"
+    },
+    "freedom": {
+      "a": "possible",
+      "b": "possible",
+      "c": "possible",
+      "editedPlaces": 1,
+      "note": "radix 回と同じ自前 CSS のため同じ結果。CSS 変数 1値ずつで済む。テーマという仕組み自体が無い"
+    },
+    "stack": {
+      "frameworks": ["react"],
+      "ssr": true,
+      "rsc": false,
+      "rscNote": "部品は client 側",
+      "styling": "持たない (見た目は利用側が書く)",
+      "fetchedAt": "2026-08-04",
+      "note": "MUI・Radix・Floating UI の作者チームによる headless。Radix と同じ React 専用"
+    },
+    "a11y": {
+      "axeVersion": "4.12.1",
+      "violations": { "initial": 2, "dialog": 0, "formError": 3 },
+      "violationRules": {
+        "initial": ["landmark-one-main", "region"],
+        "dialog": [],
+        "formError": ["aria-dialog-name", "color-contrast", "region"]
+      },
+      "keyboard": "complete",
+      "comboArrowEnter": true,
+      "tabArrowKeys": true,
+      "focusTrap": true,
+      "escClose": true,
+      "note": "キーボード操作は全項目通過。エラー表示中の aria-dialog-name は Base UI 固有: トーストが role=dialog で描画され、説明文だけのトーストだと名前の無いダイアログになる (他実装のトーストは status 系ロールで出ない)。color-contrast は radix 回と共通の自前 CSS (#0090ff / #e5484d に白文字) 由来",
+      "measurementFix": "focusTrap の判定を修正した (2026-08-04)。Base UI は焦点ガードの span を経由して非同期に閉じ込め直すため、Tab 直後に見ると「外に出た」と誤判定していた。待ちを入れて判定するよう scripts/measure-a11y.mts を直し、全10実装を測り直して既存9実装の値が変わらないことを確認済み"
+    },
+    "maintenance": {
+      "stars": 10543,
+      "commits90d": 410,
+      "latestRelease": "2026-08-04",
+      "latestVersion": "1.7.0",
+      "lastPush": "2026-08-04",
+      "openIssues": 411,
+      "weeklyDownloads": 8730370,
+      "downloadsPackage": "@base-ui/react",
+      "downloadsWindow": "2026-07-28/2026-08-03",
+      "docsSearch": true,
+      "fetchedAt": "2026-08-04",
+      "note": "週間 873万は直接・間接の内訳を確認していない (他パッケージの依存として入るぶんを含む可能性がある)。旧パッケージ名 @base-ui-components/react は同週 416,594。リリース v1.7.0 は測定当日"
+    }
+  },
+  "parts": [
+    { "name": "テーブル", "tier": "none", "source": "@base-ui/react 1.7.0 の export 一覧", "fetchedAt": "2026-08-04", "note": "素の table を自分で書く" },
+    { "name": "データグリッド (仮想化・列固定)", "tier": "none", "source": "@base-ui/react 1.7.0 の export 一覧", "fetchedAt": "2026-08-04" },
+    { "name": "日付入力", "tier": "none", "source": "@base-ui/react 1.7.0 の export 一覧", "fetchedAt": "2026-08-04", "note": "素の date 入力を使った (radix 回と同じ)" },
+    { "name": "カレンダー", "tier": "none", "source": "@base-ui/react 1.7.0 の export 一覧", "fetchedAt": "2026-08-04" },
+    { "name": "グラフ", "tier": "none", "source": "@base-ui/react 1.7.0 の export 一覧", "fetchedAt": "2026-08-04" },
+    { "name": "コンボボックス", "tier": "free", "source": "https://base-ui.com/react/components/combobox", "fetchedAt": "2026-08-04", "note": "入力しながら絞り込める本物の Combobox。Autocomplete も別部品である" },
+    { "name": "コマンドパレット", "tier": "none", "source": "@base-ui/react 1.7.0 の export 一覧", "fetchedAt": "2026-08-04" },
+    { "name": "トースト", "tier": "free", "source": "https://base-ui.com/react/components/toast", "fetchedAt": "2026-08-04", "note": "Provider / Portal / Viewport / 一覧描画をすべて自分で置く方式" },
+    { "name": "ダイアログ", "tier": "free", "source": "https://base-ui.com/react/components/dialog", "fetchedAt": "2026-08-04" },
+    { "name": "ドロワー", "tier": "free", "source": "@base-ui/react 1.7.0 の export 一覧 (Drawer)", "fetchedAt": "2026-08-04" },
+    { "name": "タブ", "tier": "free", "source": "https://base-ui.com/react/components/tabs", "fetchedAt": "2026-08-04" },
+    { "name": "フォーム検証", "tier": "free", "source": "@base-ui/react 1.7.0 の export 一覧 (Form/Field)", "fetchedAt": "2026-08-04", "note": "Form は errors の配線を持つ。今回は他実装と条件を揃えるため共有ロジックで検証した" },
+    { "name": "ファイルアップロード", "tier": "none", "source": "@base-ui/react 1.7.0 の export 一覧", "fetchedAt": "2026-08-04" },
+    { "name": "リッチテキスト", "tier": "none", "source": "@base-ui/react 1.7.0 の export 一覧", "fetchedAt": "2026-08-04" },
+    { "name": "ページネーション", "tier": "none", "source": "@base-ui/react 1.7.0 の export 一覧", "fetchedAt": "2026-08-04" }
+  ],
+  "aux": { "jsGzipBytes": 118580, "cssGzipBytes": 1350, "fontFiles": 0, "deps": 3, "devDeps": 7 },
+  "deepDive": ["a11y", "parts", "maintenance"],
+  "measurementNotes": [
+    "部品の有無は公式サイトではなく @base-ui/react 1.7.0 の export 一覧で判定した (第6回の教訓)。トップレベル export は 40 部品 (Button・Input などの基礎部品を含む)",
+    "配色・CSS は radix 回の style.css を土台に、部品固有のクラスだけ差し替えた (arkui 回と同じ方針)",
+    "Dialog は公式 anatomy どおり Portal > Backdrop > Viewport > Popup で組んでいる",
+    "焦点閉じ込めの判定を実装非依存に修正した (measurementFix 参照)。修正後に全10実装を再測定し、既存9実装の値が変わらないことを確認した"
+  ]
+}

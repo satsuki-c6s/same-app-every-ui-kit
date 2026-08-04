@@ -1,0 +1,90 @@
+{
+  "kit": "tremor",
+  "version": "main (2026-08-04 取得。リリースタグ無し)",
+  "measuredAt": "2026-08-04",
+  "prereg": "v2",
+  "base": { "framework": "react@19.2.8", "bundler": "vite@8.2.0", "node": "25.2.1", "typescript": "6.0.3", "tailwindcss": "4.3.3" },
+  "axes": {
+    "speed": {
+      "implLines": 305,
+      "vendoredLines": 3307,
+      "components": 2,
+      "steps": 3,
+      "stepsNote": "公式手順どおりに始めた場合: create vite + 依存16パッケージの install (added 63 packages を実測) + リポジトリから部品ソースのコピー。実際には土台の版を揃えるため既存回の設定ファイルを複製している",
+      "componentsNote": "自分で書いたコンポーネント数 (App + Root)。src/App.tsx 291 行 + src/main.tsx 14 行",
+      "linesNote": "自作 305 行は Mantine (269)・Ant Design (286) に次ぐ少なさ。ただし取り込み 3,307 行 (18ファイル・12部品) は shadcn/ui の 1,472 行の2.2倍で全実装の最大。CLI が無いので docs/リポジトリから手でコピーする",
+      "vendoredParts": ["Button", "Calendar", "DatePicker", "Dialog", "Input", "Label", "Popover", "Select", "Table", "Tabs", "Toast", "Toaster"]
+    },
+    "freedom": {
+      "a": "possible",
+      "b": "possible",
+      "c": "possible",
+      "editedPlaces": 1,
+      "note": "(a) @theme で --color-blue-500 を1値上書きすると主ボタン・タブの色が全て替わることを実測 (oklch 指定→計算済みスタイルで確認、検証後に復元しビルド正常)。ただし hover の blue-600 等は濃淡ごとに追加上書きが要る。(b) --radius-md と --radius-sm の2値を 0 にすると入力欄の角丸が 0px になることを実測。(c) ダイアログの開閉アニメは globals.css の keyframes がソースとして手元にあるため直接編集できる (shadcn と同じ「ソースを持つ」方式の帰結)"
+    },
+    "stack": {
+      "frameworks": ["react"],
+      "ssr": true,
+      "rsc": false,
+      "rscNote": "部品は client 側",
+      "styling": "Tailwind CSS v4 + tailwind-variants",
+      "fetchedAt": "2026-08-04",
+      "note": "公式ドキュメントの想定は Next.js (Vite ページは Updating Soon のまま)。React 19 では型の差で Calendar の1箇所にキャストが要った (measurementNotes 参照)"
+    },
+    "a11y": {
+      "axeVersion": "4.12.1",
+      "violations": { "initial": 3, "dialog": 1, "formError": 3 },
+      "violationRules": {
+        "initial": ["color-contrast", "landmark-one-main", "region"],
+        "dialog": ["color-contrast"],
+        "formError": ["color-contrast", "landmark-one-main", "region"]
+      },
+      "keyboard": "complete",
+      "comboArrowEnter": true,
+      "tabArrowKeys": true,
+      "focusTrap": true,
+      "escClose": true,
+      "note": "キーボード操作は全項目通過。color-contrast は選択中タブの青 (#2b7fff = Tailwind v4 の blue-500) が白背景で 3.76:1 と AA (4.5:1) 未達。既定値のままで初期表示から出る。ライブラリ既定色が基準を外したのはこれで6実装目 (Mantine / Ant Design / daisyUI / Chakra / Radix Colors / Tremor)"
+    },
+    "maintenance": {
+      "stars": 3546,
+      "commits90d": 0,
+      "latestRelease": null,
+      "latestVersion": null,
+      "lastPush": "2025-10-10",
+      "openIssues": 31,
+      "weeklyDownloads": 357232,
+      "downloadsPackage": "@tremor/react (旧 npm ライブラリ)",
+      "downloadsWindow": "2026-07-28/2026-08-03",
+      "docsSearch": true,
+      "fetchedAt": "2026-08-04",
+      "note": "**直近90日のコミット数 0** は全実装で初。copy-paste 方式の本体リポジトリ (tremorlabs/tremor) は 2025-10-10 が最終更新で、リリースタグも無い。旧 npm ライブラリのリポジトリ (tremorlabs/tremor-npm・スター 16,457・Apache-2.0) も 2025-01-13 で停止。2025-01 の Vercel による買収後、どちらのリポジトリも動いていない。週間DL 357,232 は旧 npm ライブラリのもので、copy-paste 版の利用は npm に現れない"
+    }
+  },
+  "parts": [
+    { "name": "テーブル", "tier": "free", "source": "tremorlabs/tremor main の src/components 一覧", "fetchedAt": "2026-08-04", "note": "Table。並べ替えは自作" },
+    { "name": "データグリッド (仮想化・列固定)", "tier": "none", "source": "tremorlabs/tremor main の src/components 一覧", "fetchedAt": "2026-08-04" },
+    { "name": "日付入力", "tier": "free", "source": "tremorlabs/tremor main の src/components 一覧", "fetchedAt": "2026-08-04", "note": "DatePicker (時刻入力つき)。確定が Cancel/Apply の2段階" },
+    { "name": "カレンダー", "tier": "free", "source": "tremorlabs/tremor main の src/components 一覧", "fetchedAt": "2026-08-04", "note": "Calendar (react-day-picker v8 ベース)" },
+    { "name": "グラフ", "tier": "free", "source": "tremorlabs/tremor main の src/components 一覧", "fetchedAt": "2026-08-04", "note": "AreaChart / BarChart / LineChart / DonutChart / ComboChart など11種 (recharts ベース)。この層の本領" },
+    { "name": "コンボボックス", "tier": "none", "source": "tremorlabs/tremor main の src/components 一覧", "fetchedAt": "2026-08-04", "note": "Select はあるが入力しながら絞り込む部品は無い。Select で代用した" },
+    { "name": "コマンドパレット", "tier": "none", "source": "tremorlabs/tremor main の src/components 一覧", "fetchedAt": "2026-08-04" },
+    { "name": "トースト", "tier": "free", "source": "tremorlabs/tremor main の src/components 一覧", "fetchedAt": "2026-08-04", "note": "Toast + Toaster + useToast フック" },
+    { "name": "ダイアログ", "tier": "free", "source": "tremorlabs/tremor main の src/components 一覧", "fetchedAt": "2026-08-04" },
+    { "name": "ドロワー", "tier": "free", "source": "tremorlabs/tremor main の src/components 一覧", "fetchedAt": "2026-08-04" },
+    { "name": "タブ", "tier": "free", "source": "tremorlabs/tremor main の src/components 一覧", "fetchedAt": "2026-08-04" },
+    { "name": "フォーム検証", "tier": "none", "source": "tremorlabs/tremor main の src/components 一覧", "fetchedAt": "2026-08-04", "note": "検証機構は無い。hasError によるエラー装飾のみで、検証は共有ロジックで行った" },
+    { "name": "ファイルアップロード", "tier": "none", "source": "tremorlabs/tremor main の src/components 一覧", "fetchedAt": "2026-08-04" },
+    { "name": "リッチテキスト", "tier": "none", "source": "tremorlabs/tremor main の src/components 一覧", "fetchedAt": "2026-08-04" },
+    { "name": "ページネーション", "tier": "none", "source": "tremorlabs/tremor main の src/components 一覧", "fetchedAt": "2026-08-04" }
+  ],
+  "aux": { "jsGzipBytes": 182120, "cssGzipBytes": 8570, "fontFiles": 0, "deps": 18, "devDeps": 9 },
+  "deepDive": ["parts", "maintenance", "speed"],
+  "measurementNotes": [
+    "部品の有無は公式サイトではなく tremorlabs/tremor main ブランチの src/components 一覧で判定した (39 部品)。チャート系が11種で最大勢力",
+    "配布は shadcn 型の「ソースを取り込む」方式だが CLI が無く、リポジトリ/docs から手でコピーする。ライセンスは Apache-2.0 なので取り込んだソースはこのリポジトリにそのまま置ける (第11回 Aceternity と対照的)",
+    "公式の依存指定は React 18・react-day-picker 8・date-fns 3。土台を React 19 に揃えているため --legacy-peer-deps で導入し、React 19 の useRef 型差で Calendar.tsx の1箇所だけキャストを足した (それ以外は無改変)",
+    "ダークモードの公式切替機構は無い (dark: クラスは全部品に定義済み)。PREREG に従い切替は自作せず、ダークモードは「無し」と記録 (キャプチャは9枚)",
+    "改造課題 (a)(b) は @theme の上書きで実測し、検証後に既定へ戻してビルドが通ることを確認した"
+  ]
+}

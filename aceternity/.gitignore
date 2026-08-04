@@ -1,0 +1,13 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+
+# Aceternity UI の部品ソースはライセンス上、公開リポジトリに再配布できないため除外する
+# (取得方法は README.md 参照。registry から各自で取得すれば同じ画面が再現できる)
+src/components/ui/
